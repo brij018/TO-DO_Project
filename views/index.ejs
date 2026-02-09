@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do</title>
+  <link rel="stylesheet" href="/style.css?v=2">
+</head>
+<body class="app-body">
+
+  <div class="todo-container">
+    <h1 class="todo-title">To-Do List</h1>
+
+    <form class="todo-form" action="/add" method="POST">
+      <input 
+        class="todo-input"
+        type="text" 
+        name="task" 
+        placeholder="New task..." 
+        required
+      >
+      <button class="todo-add-btn">Add</button>
+    </form>
+
+    <ul class="todo-list">
+      <% tasks.forEach((task, i) => { %>
+        <li class="todo-item <%= task.completed ? 'completed' : '' %>">
+
+          <form class="todo-toggle-form" action="/toggle/<%= i %>" method="POST">
+            <input 
+              class="todo-checkbox"
+              type="checkbox"
+              onChange="this.form.submit()"
+              <%= task.completed ? 'checked' : '' %>
+            >
+          </form>
+
+          <span class="todo-text"><%= task.text %></span>
+
+          <form class="todo-delete-form" action="/delete/<%= i %>" method="POST">
+            <button class="todo-delete-btn">✕</button>
+          </form>
+
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+</body>
+</html>
